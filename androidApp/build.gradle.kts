@@ -25,6 +25,8 @@ kotlin {
 
                 implementation("com.google.accompanist:accompanist-systemuicontroller:0.29.2-rc")
                 implementation("com.google.accompanist:accompanist-permissions:0.29.1-alpha")
+                implementation ("com.google.android.gms:play-services-auth:20.5.0")
+
             }
         }
     }

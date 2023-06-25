@@ -5,6 +5,7 @@ plugins {
     id("org.jetbrains.compose")
     kotlin("plugin.serialization")
     id("dev.icerock.mobile.multiplatform-resources")
+    id("io.realm.kotlin") version "1.9.1"
 }
 
 version = "1.0-SNAPSHOT"
@@ -29,7 +30,7 @@ kotlin {
     }
 
     val napierVersion = "2.6.1"
-    val ktorVersion = "2.2.4"
+
     val compose_image = "1.2.10"
     val koin_core_version = "3.4.0"
     val koin_android_version = "3.3.3"
@@ -54,8 +55,8 @@ kotlin {
                 implementation(compose.foundation)
                 implementation(compose.material)
                 implementation(compose.material3)
-                implementation("org.jetbrains.compose.components:components-resources:1.3.0-beta04-dev879")
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
+                implementation("org.jetbrains.compose.components:components-resources:1.4.0")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0")
                 api("io.github.qdsfdhvh:image-loader:$compose_image")
 
                 api("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
@@ -68,8 +69,17 @@ kotlin {
                 api("cafe.adriel.voyager:voyager-navigator:$voyagerVersion")
                 api("cafe.adriel.voyager:voyager-transitions:$voyagerVersion")
                 implementation("cafe.adriel.voyager:voyager-koin:$voyagerVersion")
+                implementation("io.realm.kotlin:library-sync:1.9.1")
+
+                api("com.google.android.gms:play-services-safetynet:18.0.1")
+                implementation ("com.github.stevdza-san:OneTapCompose:1.0.3")
+                implementation ("com.google.android.gms:play-services-auth:20.5.0")
+
             }
         }
+
+
+
         val androidMain by getting {
             dependencies {
                 implementation("androidx.appcompat:appcompat:1.5.1")
@@ -115,6 +125,9 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 }
+dependencies {
+    implementation("androidx.media3:media3-common:1.0.0-alpha03")
+}
 
 multiplatformResources {
     multiplatformResourcesPackage = "com.appkickstarter.shared" // required
@@ -123,3 +136,4 @@ multiplatformResources {
     iosBaseLocalizationRegion = "en" // optional, default "en"
     multiplatformResourcesSourceSet = "commonMain"  // optional, default "commonMain"
 }
+

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "534012659532",
+    "project_id": "food-recipe-share-b4a54",
+    "storage_bucket": "food-recipe-share-b4a54.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:534012659532:android:a265de6995add811da31e9",
+        "android_client_info": {
+          "package_name": "com.lduboscq.appkickstarter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "534012659532-asg3p6n1h6fnddmplotpuc2a2mc0pfar.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8u5EdLO35HetK0C6tFTjY9OK9DX-XKfg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "534012659532-asg3p6n1h6fnddmplotpuc2a2mc0pfar.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
