@@ -74,7 +74,6 @@ kotlin {
                 api("com.google.android.gms:play-services-safetynet:18.0.1")
                 implementation ("com.github.stevdza-san:OneTapCompose:1.0.3")
                 implementation ("com.google.android.gms:play-services-auth:20.5.0")
-
             }
         }
 
@@ -82,8 +81,8 @@ kotlin {
 
         val androidMain by getting {
             dependencies {
-                implementation("androidx.appcompat:appcompat:1.5.1")
-                implementation("androidx.core:core-ktx:1.9.0")
+                implementation("androidx.appcompat:appcompat:1.6.1")
+                implementation("androidx.core:core-ktx:1.10.1")
                 implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
 
                 api("io.insert-koin:koin-android:$koin_android_version")
@@ -93,12 +92,14 @@ kotlin {
                 api("io.insert-koin:koin-androidx-navigation:$koin_android_version")
                 // Compose
                 api("io.insert-koin:koin-androidx-compose:$koin_android_compose_version")
+                implementation ("io.coil-kt:coil-compose:2.3.0")
             }
         }
         val iosMain by getting {
             dependencies {
                 implementation("io.ktor:ktor-client-darwin:$ktorVersion")
                 implementation("io.ktor:ktor-client-ios:$ktorVersion")
+
             }
         }
         val iosTest by getting
