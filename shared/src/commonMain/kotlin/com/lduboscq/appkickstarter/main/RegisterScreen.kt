@@ -76,7 +76,7 @@ class RegisterScreen : Screen {
 
         Box(modifier = Modifier.fillMaxSize()) {
             com.lduboscq.appkickstarter.ui.Image(
-                url = "https://i.pinimg.com/564x/73/93/0d/73930d5fa877f15da2139d9075d8013e.jpg",
+                url = "https://i.pinimg.com/564x/9d/36/fd/9d36fd94e51bdb73759070905718e669.jpg",
                 contentScale = ContentScale.FillBounds,
                 modifier = Modifier.fillMaxSize()
             )

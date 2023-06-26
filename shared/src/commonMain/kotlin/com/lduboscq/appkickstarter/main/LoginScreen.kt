@@ -1,6 +1,19 @@
 package com.lduboscq.appkickstarter.main
 
+import androidx.compose.animation.Animatable
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -9,6 +22,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
@@ -22,6 +36,7 @@ import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.Card
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -47,6 +62,7 @@ import com.lduboscq.appkickstarter.main.ui.theme.md_theme_dark_onPrimary
 import com.lduboscq.appkickstarter.main.ui.theme.md_theme_dark_primary
 import com.lduboscq.appkickstarter.main.ui.theme.md_theme_light_secondary
 import com.lduboscq.appkickstarter.ui.Image
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 
 
@@ -60,6 +76,7 @@ class LoginScreen : Screen {
 
     @Composable
     override fun Content() {
+
         val screenModel =
             rememberScreenModel() { LoginScreenModel(LoginRepositoryRealmLocal()) }
         val state by screenModel.state.collectAsState()
@@ -68,6 +85,7 @@ class LoginScreen : Screen {
         var isClicked by remember { mutableStateOf(true) }
         val navigator = LocalNavigator.currentOrThrow
         var errorMessage by remember { mutableStateOf("") }
+
 
         Box(modifier = Modifier.fillMaxSize()) {
             Image(
@@ -78,122 +96,158 @@ class LoginScreen : Screen {
 
             )
 
-                Column(
-                    modifier = Modifier.fillMaxSize(),
-                    horizontalAlignment = Alignment.CenterHorizontally
-
+                Box(
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp)
+                        .align(Alignment.Center)
                 ) {
-                    when (val result = state) {
-                        is LoginScreenModel.State.Init -> Text("...")
-                        is LoginScreenModel.State.Loading -> Text("Loading")
-                        is LoginScreenModel.State.Result -> {
-                            Text("Success")
-                        }
-
-                        else -> {
-                            Text("Invalid email or password", color = Color.Red)
-                        }
-                    }
-                    Text(
-                        "LoginMe",
-                        color = MaterialTheme.colors.onSecondary,
-                        fontSize = 30.sp,
-                        style = MaterialTheme.typography.h3,
-                        fontWeight = FontWeight.Bold,
-                        modifier = Modifier.padding(vertical = 50.dp)
-                    )
-
-                    OutlinedTextField(
-                        value = email,
-                        onValueChange = { email = it },
-                        textStyle = TextStyle(textAlign = TextAlign.Center),
-                        label = { Text("Enter email address") },
-                        leadingIcon = {
-                            Icon(Icons.Filled.Email, contentDescription = "email icon")
-                        },
-                        singleLine = true,
-                        colors = TextFieldDefaults.outlinedTextFieldColors(
-                            textColor = MaterialTheme.colors.onSurface,
-                            focusedBorderColor = MaterialTheme.colors.primary,
-                            unfocusedBorderColor = MaterialTheme.colors.onSurface
-                        )
-                    )
-
-                    Spacer(modifier = Modifier.height(15.dp))
-                    OutlinedTextField(
-                        value = password,
-                        onValueChange = { password = it },
-                        textStyle = TextStyle(textAlign = TextAlign.Center),
-                        label = { Text("Enter password") },
-                        leadingIcon = {
-                            Icon(Icons.Filled.Lock, contentDescription = "password icon")
-                        },
-                        visualTransformation = PasswordVisualTransformation(),
-                        singleLine = true,
-                        colors = TextFieldDefaults.outlinedTextFieldColors(
-                            textColor = MaterialTheme.colors.onSurface,
-                            focusedBorderColor = MaterialTheme.colors.primary,
-                            unfocusedBorderColor = MaterialTheme.colors.onSurface
-                        )
-                    )
-                    Spacer(modifier = Modifier.height(15.dp))
-
-                    Text(
-                        "New user? Click here",
-                        modifier = Modifier.padding(10.dp)
-                            .clickable(onClick = { navigator.push(ScreenRouter(AllScreens.Register)) }),
-                        color = md_theme_light_secondary,
-                        textDecoration = TextDecoration.Underline,
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight.Bold,
-                    )
-
-                    Button(
-                        onClick = {
-                            val result = runBlocking {
-                                screenModel.login(email, password)
-                            }
-                            when (result) {
-                                is LoginScreenModel.LoginResult.Success -> {
-                                    // Navigate to profile screen
-                                    navigator.push(ScreenRouter(AllScreens.Profile(email)))
-                                }
-
-                                is LoginScreenModel.LoginResult.Error -> {
-                                    // Show error message
-                                    errorMessage = "Invalid credentials"
-                                }
-                            }
-
-                        }, modifier = Modifier.padding(20.dp),
-                        colors = ButtonDefaults.buttonColors(
-                            md_theme_dark_primary
-                        ),
-
-                        enabled = !email.isEmpty() && !password.isEmpty()
+                    Card(
+                        shape = RoundedCornerShape(10.dp),
+                        elevation = 8.dp,
+                        modifier = Modifier.fillMaxWidth().padding(16.dp),
+                        backgroundColor = Color.White,
                     ) {
 
-                        Text("Login")
+                        Column(
+                            modifier = Modifier.fillMaxWidth().padding(bottom = 40.dp)
+                                .wrapContentHeight(Alignment.CenterVertically),
+                            horizontalAlignment = Alignment.CenterHorizontally,
+
+                            content = {
+                                when (val result = state) {
+                                    is LoginScreenModel.State.Init -> Text("...")
+                                    is LoginScreenModel.State.Loading -> Text("Loading")
+                                    is LoginScreenModel.State.Result -> {
+                                        Text("Success")
+                                    }
+
+                                    else -> {
+                                        Text("Invalid email or password", color = Color.Red)
+                                    }
+                                }
+                                ShinyText(
+                                    text = "LoginMe",
+                                    modifier = Modifier.padding(vertical = 50.dp)
+                                        .align(Alignment.CenterHorizontally)
+                                )
+//                            Text(
+//                                "LoginMe",
+//                                color = MaterialTheme.colors.onSecondary,
+//                                fontSize = 30.sp,
+//                                style = MaterialTheme.typography.h3,
+//                                fontWeight = FontWeight.Bold,
+//                                modifier = Modifier.padding(vertical = 50.dp),
+//                                textAlign = TextAlign.Center
+//                            )
+
+
+                                OutlinedTextField(
+                                    value = email,
+                                    onValueChange = { email = it },
+                                    textStyle = TextStyle(textAlign = TextAlign.Center),
+                                    label = { Text("Enter email address") },
+                                    leadingIcon = {
+                                        Icon(Icons.Filled.Email, contentDescription = "email icon")
+                                    },
+                                    singleLine = true,
+                                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                                        textColor = MaterialTheme.colors.onSurface,
+                                        focusedBorderColor = MaterialTheme.colors.primary,
+                                        unfocusedBorderColor = MaterialTheme.colors.onSurface
+                                    )
+                                )
+
+                                Spacer(modifier = Modifier.height(15.dp))
+                                OutlinedTextField(
+                                    value = password,
+                                    onValueChange = { password = it },
+                                    textStyle = TextStyle(textAlign = TextAlign.Center),
+                                    label = { Text("Enter password") },
+                                    leadingIcon = {
+                                        Icon(
+                                            Icons.Filled.Lock,
+                                            contentDescription = "password icon"
+                                        )
+                                    },
+                                    visualTransformation = PasswordVisualTransformation(),
+                                    singleLine = true,
+                                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                                        textColor = MaterialTheme.colors.onSurface,
+                                        focusedBorderColor = MaterialTheme.colors.primary,
+                                        unfocusedBorderColor = MaterialTheme.colors.onSurface
+                                    )
+                                )
+                                Spacer(modifier = Modifier.height(15.dp))
+
+                                Text(
+                                    "New user? Click here",
+                                    modifier = Modifier.padding(10.dp)
+                                        .clickable(onClick = {
+                                            navigator.push(
+                                                ScreenRouter(
+                                                    AllScreens.Register
+                                                )
+                                            )
+                                        }),
+                                    color = md_theme_light_secondary,
+                                    textDecoration = TextDecoration.Underline,
+                                    fontSize = 16.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    textAlign = TextAlign.Center
+                                )
+
+                                Button(
+                                    onClick = {
+                                        val result = runBlocking {
+                                            screenModel.login(email, password)
+                                        }
+                                        when (result) {
+                                            is LoginScreenModel.LoginResult.Success -> {
+                                                // Navigate to profile screen
+                                                navigator.push(ScreenRouter(AllScreens.Profile(email)))
+                                            }
+
+                                            is LoginScreenModel.LoginResult.Error -> {
+                                                // Show error message
+                                                errorMessage = "Invalid credentials"
+                                            }
+                                        }
+
+                                    }, modifier = Modifier.padding(20.dp),
+                                    colors = ButtonDefaults.buttonColors(
+                                        md_theme_dark_primary
+                                    ),
+
+                                    enabled = !email.isEmpty() && !password.isEmpty()
+                                ) {
+
+                                    Text("Login")
+                                }
+                                Text("or sign in with")
+                                Spacer(modifier = Modifier.height(15.dp))
+                                Image(
+                                    url = "https://cdn-icons-png.flaticon.com/512/281/281764.png", // Replace with the URL of the Google logo image
+                                    modifier = Modifier
+                                        .height(40.dp)
+                                        .width(40.dp)
+                                        .clickable(onClick = {})
+                                )
+
+                            }
+                        )
                     }
-                    Text("or sign in with")
-                    Spacer(modifier = Modifier.height(15.dp))
-                    Image(
-                        url = "https://cdn-icons-png.flaticon.com/512/281/281764.png", // Replace with the URL of the Google logo image
-                        modifier = Modifier
-                            .height(40.dp)
-                            .width(40.dp)
-                            .clickable(onClick = {})
-                    )
+                }
 
             }
+
+
         }
 
-    }
-
-
-
-
 }
+
+
+
+
 
 /**
  * Changes the color based on whether the button is clicked or not.
@@ -210,4 +264,28 @@ fun colorChangeByClick(isClicked: Boolean): Color {
         MaterialTheme.colors.error
     }
 }
+@Composable
+fun ShinyText(text: String, modifier: Modifier = Modifier) {
+    var isShowing by remember { mutableStateOf(true) }
 
+    LaunchedEffect(Unit) {
+        while (true) {
+            delay(1000)
+            isShowing = !isShowing
+        }
+    }
+
+    val shimmerColor = animateColorAsState(
+        targetValue = if (isShowing) MaterialTheme.colors.onSecondary else Color.Transparent,
+        animationSpec = tween(durationMillis = 500)
+    )
+
+    Text(
+        text = text,
+        color = shimmerColor.value,
+        fontSize = 30.sp,
+        style = MaterialTheme.typography.h3,
+        fontWeight = FontWeight.Bold,
+        modifier = modifier
+    )
+}
