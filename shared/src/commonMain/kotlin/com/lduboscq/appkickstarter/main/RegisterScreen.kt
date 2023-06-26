@@ -185,7 +185,7 @@ Spacer(modifier = Modifier.height(15.dp))
                                 password,
                                 confirmPassword
                             )
-//                            navigator.push(ScreenRouter(AllScreens.Login))
+                            navigator.push(ScreenRouter(AllScreens.Login))
                         }, modifier = Modifier.padding(10.dp),
                         shape = RoundedCornerShape(50.dp),
                         colors = ButtonDefaults.buttonColors(

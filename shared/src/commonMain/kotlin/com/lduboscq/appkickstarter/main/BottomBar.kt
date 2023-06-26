@@ -61,6 +61,17 @@ fun MyBottomBar() {
                 color = md_theme_dark_onPrimary
             )
         }
+        TextButton(onClick = {
+            navigator.push(ScreenRouter(AllScreens.Administrator))
+        }) {
+            Text(
+                text = "Admid",
+                modifier = Modifier.padding(horizontal = 10.dp),
+                fontSize = 15.sp,
+                fontStyle = FontStyle.Normal,
+                color = md_theme_dark_onPrimary
+            )
+        }
         // "AboutUs" button
 //        TextButton(onClick = {
 //            navigator.push(ScreenRouter(AllScreens.AboutUs))

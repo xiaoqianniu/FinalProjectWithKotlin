@@ -59,17 +59,14 @@ class RegistrationScreenModel(private val repository: RegisterRepositoryRealm) :
         fun addUser(userName: String, email: String, password: String, confirmPassword: String) {
             coroutineScope.launch {
                 mutableState.value = State.Loading
-                mutableState.value = State.Result.SingleResult(
-                    repository.addUser(
-                        UserData(
-                            username = userName,
-                            email = email,
-                            password = password,
-                            confirmPassword = confirmPassword,
-                            user = null
-                        )
-                    )
+                val newUser = UserData(
+                    username = userName,
+                    email = email,
+                    password = password,
+                    confirmPassword = confirmPassword,
+                    user = null
                 )
+                mutableState.value = State.Result.SingleResult(repository.addUser(newUser))
             }
         }
         /**

@@ -121,8 +121,8 @@ class LoginScreen : Screen {
 
                     Spacer(modifier = Modifier.height(15.dp))
                     OutlinedTextField(
-                        value = email,
-                        onValueChange = { email = it },
+                        value = password,
+                        onValueChange = { password = it },
                         textStyle = TextStyle(textAlign = TextAlign.Center),
                         label = { Text("Enter password") },
                         leadingIcon = {
