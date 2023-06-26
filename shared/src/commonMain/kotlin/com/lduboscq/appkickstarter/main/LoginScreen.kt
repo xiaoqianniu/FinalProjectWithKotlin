@@ -77,6 +77,8 @@ class LoginScreen : Screen {
     @Composable
     override fun Content() {
 
+//        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
         val screenModel =
             rememberScreenModel() { LoginScreenModel(LoginRepositoryRealmLocal()) }
         val state by screenModel.state.collectAsState()
@@ -85,6 +87,7 @@ class LoginScreen : Screen {
         var isClicked by remember { mutableStateOf(true) }
         val navigator = LocalNavigator.currentOrThrow
         var errorMessage by remember { mutableStateOf("") }
+
 
 
         Box(modifier = Modifier.fillMaxSize()) {

@@ -6,6 +6,7 @@ plugins {
     kotlin("plugin.serialization")
     id("dev.icerock.mobile.multiplatform-resources")
     id("io.realm.kotlin") version "1.9.1"
+    id("com.google.gms.google-services")
 }
 
 version = "1.0-SNAPSHOT"
@@ -128,6 +129,7 @@ android {
 }
 dependencies {
     implementation("androidx.media3:media3-common:1.0.0-alpha03")
+    implementation("com.google.firebase:firebase-firestore:24.4.1")
 }
 
 multiplatformResources {
