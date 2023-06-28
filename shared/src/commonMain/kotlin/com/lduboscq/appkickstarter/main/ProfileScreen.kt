@@ -70,7 +70,7 @@ class ProfileScreen(private val email: String) : Screen {
                 bottomBar = { MyBottomBar() }
             ) {
                 Image(
-                    url = "https://i.pinimg.com/564x/73/93/0d/73930d5fa877f15da2139d9075d8013e.jpg",
+                    url = "https://i.pinimg.com/564x/9d/36/fd/9d36fd94e51bdb73759070905718e669.jpg",
                     contentScale = ContentScale.FillBounds,
                     modifier = Modifier.fillMaxSize()
                 )
@@ -86,6 +86,8 @@ class ProfileScreen(private val email: String) : Screen {
                         is ProfileScreenModel.State.Result -> {
                             Text("")
                         }
+
+                        else -> {}
                     }
                     Spacer(modifier = Modifier.height(25.dp))
                     Box(

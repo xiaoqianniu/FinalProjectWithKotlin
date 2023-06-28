@@ -9,6 +9,7 @@ sealed class AllScreens {
     object Register : AllScreens()
     object PreLogin : AllScreens()
     object Administrator : AllScreens()
+    object Edit : AllScreens()
 
     data class Profile(val email: String?) : AllScreens()
 //
@@ -23,7 +24,7 @@ fun ScreenRouter(screen: AllScreens): Screen {
         is AllScreens.Login ->
             LoginScreen()
 
-
+is AllScreens.Edit -> EditScreen()
         is AllScreens.Register ->
             RegisterScreen()
         is AllScreens.PreLogin ->

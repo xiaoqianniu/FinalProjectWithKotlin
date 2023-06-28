@@ -58,6 +58,7 @@ import cafe.adriel.voyager.core.model.rememberScreenModel
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+
 import com.lduboscq.appkickstarter.main.ui.theme.md_theme_dark_onPrimary
 import com.lduboscq.appkickstarter.main.ui.theme.md_theme_dark_primary
 import com.lduboscq.appkickstarter.main.ui.theme.md_theme_light_secondary
@@ -71,6 +72,8 @@ import kotlinx.coroutines.runBlocking
  * 646240160192-tm0s4r2rnt9q6irmo3a05pgvgannfh05.apps.googleusercontent.com
  * 646240160192-6fluksqseop07doqln856tog0d9ist7e.apps.googleusercontent.com
  * https://github.com/stevdza-san/OneTapCompose
+ * web client ID:534012659532-1c8bd01ni8klahd55pgem45ks1r7vdtu.apps.googleusercontent.com
+ * Web client secret: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
  */
 class LoginScreen : Screen {
 
@@ -245,6 +248,16 @@ class LoginScreen : Screen {
 
 
         }
+//    private fun signInWithGoogle() {
+//        val googleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+//            .requestIdToken(getString(R.string.default_web_client_id))
+//            .requestEmail()
+//            .build()
+//
+//        val googleSignInClient = GoogleSignIn.getClient(LocalContext.current, googleSignInOptions)
+//        val signInIntent = googleSignInClient.signInIntent
+//        LocalContext.current.startActivityForResult(signInIntent, RC_SIGN_IN)
+//    }
 
 }
 

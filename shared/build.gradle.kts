@@ -6,7 +6,7 @@ plugins {
     kotlin("plugin.serialization")
     id("dev.icerock.mobile.multiplatform-resources")
     id("io.realm.kotlin") version "1.9.1"
-    id("com.google.gms.google-services")
+
 }
 
 version = "1.0-SNAPSHOT"
@@ -72,9 +72,8 @@ kotlin {
                 implementation("cafe.adriel.voyager:voyager-koin:$voyagerVersion")
                 implementation("io.realm.kotlin:library-sync:1.9.1")
 
-                api("com.google.android.gms:play-services-safetynet:18.0.1")
-                implementation ("com.github.stevdza-san:OneTapCompose:1.0.3")
-                implementation ("com.google.android.gms:play-services-auth:20.5.0")
+
+
             }
         }
 
@@ -127,9 +126,16 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 }
+
 dependencies {
     implementation("androidx.media3:media3-common:1.0.0-alpha03")
-    implementation("com.google.firebase:firebase-firestore:24.4.1")
+    implementation("com.google.firebase:firebase-firestore:24.6.1")
+    implementation("com.google.firebase:firebase-auth-ktx:22.0.0")
+    implementation("com.google.android.gms:play-services-base:18.2.0")
+    implementation("com.google.android.gms:play-services-auth:20.5.0")
+    api("com.google.android.gms:play-services-safetynet:18.0.1")
+    implementation("androidx.test.espresso:espresso-core:3.5.1")
+
 }
 
 multiplatformResources {
